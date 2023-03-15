@@ -45,6 +45,7 @@ void call(Map parameters = [:], body) {
         if (Boolean.valueOf(env.ON_K8S) && (containerMap.size() > 0 || config.runStageInPod)) {
             environment.add("POD_NAME=${stageName}")
             withEnv(environment) {
+                echo "[MH] running stage in pod"
                 dockerExecuteOnKubernetes(script: script, containerMap: containerMap, stageName: stageName) {
                     executeStage(script, body, stageName, config, utils, parameters.telemetryDisabled)
                 }
