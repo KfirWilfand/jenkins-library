@@ -53,7 +53,10 @@ def stashWithMessage(name, msg, include = '**/*.*', exclude = '', useDefaultExcl
 }
 
 def stashStageFiles(Script script, String stageName) {
+    script.echo "[MH] entering stashStageFiles"
     List stashes = script.commonPipelineEnvironment.configuration.stageStashes?.get(stageName)?.stashes ?: []
+
+    script.echo "[MH] stashes: ${stashes}"
 
     stashList(script, stashes)
 
