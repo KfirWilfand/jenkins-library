@@ -82,7 +82,9 @@ def unstash(name, msg = "Unstash failed:") {
     def unstashedContent = []
     try {
         echo "Unstash content: ${name}"
+        steps.sh 'echo BEFORE;pwd; ls -la'        
         steps.unstash name
+        steps.sh 'echo AFTER;pwd; ls -la'        
         unstashedContent += name
     } catch (e) {
         echo "$msg $name (${e.getMessage()})"
