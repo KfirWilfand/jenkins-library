@@ -341,6 +341,7 @@ void executeOnPod(Map config, utils, Closure body, Script script) {
     } finally {
         if (config.containerName)
             unstashWorkspace(config, 'container')
+        sh 'echo AFTER_UNSTASH_CONTAINER; pwd; ls -la'
     }
 }
 
