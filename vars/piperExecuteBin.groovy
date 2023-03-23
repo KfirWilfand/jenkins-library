@@ -11,6 +11,11 @@ import groovy.transform.Field
 import static com.sap.piper.Prerequisites.checkScript
 
 @Field String STEP_NAME = getClass().getName()
+@Field List DEFAULT_STASHES = [
+  'pipelineConfigAndTests',
+  'piper-bin',
+  'pipelineStepReports',
+]
 
 void call(Map parameters = [:], String stepName, String metadataFile, List credentialInfo, boolean failOnMissingReports = false, boolean failOnMissingLinks = false, boolean failOnError = false) {
 
@@ -57,10 +62,8 @@ void call(Map parameters = [:], String stepName, String metadataFile, List crede
             // first eliminate empty stashes
             config.stashContent = utils.unstashAll(config.stashContent)
             // then make sure that commonPipelineEnvironment, config, ... is also available when step stashing is active
-            if (config.stashContent?.size() > 0) {
-                config.stashContent.add('pipelineConfigAndTests')
-                config.stashContent.add('piper-bin')
-                config.stashContent.add('pipelineStepReports')
+            if (config.stashContent) {
+                config.stashContent.addAll(DEFAULT_STASHES)
             }
 
             if (parameters.stashNoDefaultExcludes) {
