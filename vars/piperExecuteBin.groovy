@@ -45,6 +45,10 @@ void call(Map parameters = [:], String stepName, String metadataFile, List crede
             Map config
             handleErrorDetails(stepName) {
                 config = getStepContextConfig(script, piperGoPath, metadataFile, defaultConfigArgs, customConfigArg)
+                if(config.stashContent) {
+                  echo "[INFO] MH: adding cicd transfer stash 'cloudcitransfer'"
+                  config.stashContent << 'cloudcitransfer'
+                }
                 echo "Context Config: ${config}"
             }
 
