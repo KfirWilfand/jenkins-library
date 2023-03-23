@@ -127,6 +127,8 @@ static void prepareMetadataResource(Script script, String metadataFile) {
 
 // reused in sonarExecuteScan
 static Map getStepContextConfig(Script script, String piperGoPath, String metadataFile, String defaultConfigArgs, String customConfigArg) {
+    def contextConfigCommand = "${piperGoPath} getConfig --contextConfig --stepMetadata '.pipeline/tmp/${metadataFile}'${defaultConfigArgs}${customConfigArg}"
+    echo "[MH] contextConfigCommand: ${contextConfigCommand}"
     return script.readJSON(text: script.sh(returnStdout: true, script: "${piperGoPath} getConfig --contextConfig --stepMetadata '.pipeline/tmp/${metadataFile}'${defaultConfigArgs}${customConfigArg}"))
 }
 
