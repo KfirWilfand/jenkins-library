@@ -44,6 +44,7 @@ void call(Map parameters = [:], String stepName, String metadataFile, List crede
             // get context configuration
             Map config
             handleErrorDetails(stepName) {
+                sh 'pwd; ls -la; find . -mindepth 1 -maxdepth 3'
                 config = getStepContextConfig(script, piperGoPath, metadataFile, defaultConfigArgs, customConfigArg)
                 echo "Context Config: ${config}"
             }
